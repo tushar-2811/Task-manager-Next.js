@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/libs/PrismaDB";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import {z} from 'zod'
@@ -9,7 +9,7 @@ const userSchema = z.object({
     password : z.string().min(3).max(20)
 })
 
-const prisma = new PrismaClient();
+
 
 
 export async function POST(request: NextRequest){

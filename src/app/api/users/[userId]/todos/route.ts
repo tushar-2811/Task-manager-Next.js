@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { prismaDB } from "@/libs/PrismaDB";
+import prisma from "@/libs/PrismaDB";
 
 interface Params {
     params : {
@@ -16,7 +16,7 @@ export async function GET(request : NextRequest , {params}:Params) {
     const userid = Number(params.userId);
 
 
-        const allTodo = await prismaDB.todo.findMany({
+        const allTodo = await prisma.todo.findMany({
               where : {
                 userId : userid
               }

@@ -1,4 +1,4 @@
-import { prismaDB } from "@/libs/PrismaDB";
+import prisma from "@/libs/PrismaDB";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import {z} from 'zod';
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
         }
         
 
-        const newTask = await prismaDB.todo.create({
+        const newTask = await prisma.todo.create({
             data : {
                 title : title,
                 body : body,
@@ -60,7 +60,7 @@ export async function GET(request : NextRequest) {
        const userid = Number(searchParams.get('userid'));
 
 
-        const allTodo = await prismaDB.todo.findMany({
+        const allTodo = await prisma.todo.findMany({
               where : {
                 userId : userid
               }

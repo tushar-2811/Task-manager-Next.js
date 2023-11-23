@@ -1,10 +1,10 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/libs/PrismaDB";
 import jwt from 'jsonwebtoken'
 import {z} from 'zod'
 
-const prisma = new PrismaClient();
+
 
 const userSchema = z.object({
     userName : z.string().min(3).max(20),

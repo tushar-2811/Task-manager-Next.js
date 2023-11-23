@@ -1,4 +1,4 @@
-import { prismaDB } from "@/libs/PrismaDB";
+import prisma from "@/libs/PrismaDB";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
@@ -14,13 +14,13 @@ export async function DELETE(request : NextRequest, {params}: Params) {
       try {
         const todoId = Number(params.todoId);
 
-        const DeletedTodo = await prismaDB.todo.delete({
+        const DeletedTodo = await prisma.todo.delete({
             where : {
                 id : todoId
             }
         })
 
-        const RestTodo = await prismaDB.todo.findMany();
+        const RestTodo = await prisma.todo.findMany();
 
         return NextResponse.json({
             ok : true,

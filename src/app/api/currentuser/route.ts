@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import jwt from 'jsonwebtoken'
-import { prismaDB } from "@/libs/PrismaDB";
+import prisma from "@/libs/PrismaDB";
 
 interface JwtPayload {
     id : number
@@ -24,7 +24,7 @@ export async function GET(request : NextRequest){
 
         
 
-        const existingUser = await prismaDB.user.findUnique({
+        const existingUser = await prisma.user.findUnique({
             where : {
                 id : id
             }

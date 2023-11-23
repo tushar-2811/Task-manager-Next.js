@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import {prismaDB} from '@/libs/PrismaDB'
+import prisma from "@/libs/PrismaDB";
 import {z} from 'zod';
 
 const userSchema = z.object({
@@ -21,7 +21,7 @@ interface Params{
 export async function GET(request: NextRequest , {params} : Params) {
      try {
         const userId = Number(params.userId);
-        const User = await prismaDB.user.findUnique({
+        const User = await prisma.user.findUnique({
          where : {
             id : userId
          }
@@ -50,7 +50,7 @@ export async function DELETE(request:NextRequest , {params} : Params) {
    try {
       const userId = Number(params.userId);
 
-      const existingUser = await prismaDB.user.delete({
+      const existingUser = await prisma.user.delete({
          where : {
             id : userId
          }
@@ -88,7 +88,7 @@ export async function PUT(request : NextRequest , {params} : Params) {
          },{status : 401})
       }
 
-      const updatedUser = await prismaDB.user.update({
+      const updatedUser = await prisma.user.update({
          where : {
             id : userId
          },
