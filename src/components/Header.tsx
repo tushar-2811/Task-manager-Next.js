@@ -16,6 +16,7 @@ const Header = () => {
   const path = usePathname();
   const auth = useAuth();
   const router = useRouter();
+  const [data , setData] = useState<any>();
 
   const handleLogout = async() => {
       await axios.get("/api/logout");
@@ -25,15 +26,21 @@ const Header = () => {
       toast.success("Log out")
   }
 
-  const {isLoading , data} = useCurrentUser("/api/currentuser");
-  
-  if(isLoading) {
-     return <div className='flex justify-center items-center mt-0'>
-     <ClipLoader size={40} color='black' />
-  </div>
-  }
+  // const {isLoading , data} = useCurrentUser("/api/currentuser");
 
-  else{
+  useEffect(() => {
+    const getUser = async() => {
+        const {data} = await axios.get("/api/currentuser");
+        if(data.ok){
+          setData({...data.user});
+          Cookies.set("userId" , data.user.id);
+        }
+
+    }
+    getUser();
+  } ,[auth.isAuth])
+  
+ 
     return (
       <nav className='h-16 p-2 items-center flex justify-around border-b-2 mx-4' >
          <div className='text-2xl font-mono font-bold' > Todo-App </div> 
@@ -87,6 +94,5 @@ const Header = () => {
 
 
  
-}
 
 export default Header

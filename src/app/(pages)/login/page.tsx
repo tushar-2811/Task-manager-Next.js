@@ -14,17 +14,14 @@ const login = () => {
 
   const handleSubmit = async() => {
       console.log(userName , password);
-      const data = await signIn({userName ,password});
+      const data = await signIn({userName,password});
 
       if(data.ok) {
          toast.success("successful login");
          console.log(data);
         //  router.replace('/profile')
-        router.replace('/profile');
-        auth.setAuth();
-
-        
-
+         router.replace('/profile');
+         auth.setAuth();
       }else{
          toast.error("error");
          console.log(data.msg);
